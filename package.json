@@ -12,6 +12,10 @@
     "npm-check": "node node_modules/npm-check/bin/cli.js -E"
   },
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dimensions-builder/repository.git"
+  },
   "contributors": [
     "Jakob Harder <jharder@live.com>"
   ],
