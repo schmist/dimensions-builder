@@ -6,7 +6,7 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 
 var commonConfig = {
   resolve: {
-    extensions: ['', '.ts', '.js', '.json']
+    extensions: ['*', '.ts', '.js', '.json']
   },
   module: {
     loaders: [
@@ -15,7 +15,7 @@ var commonConfig = {
       { test: /\.html$/, loader: 'raw-loader' },
       { test: /\.css$/, loader: 'raw-loader' },
       { test: /\.json$/, loader: 'raw-loader' }
-    ],
+    ]
   },
   plugins: [
     new UglifyJsPlugin({
@@ -32,7 +32,6 @@ var commonConfig = {
       //   unused: false
       // }, // debug
       // comments: true, //debug
-
 
       beautify: false, //prod
       mangle: { screw_ie8 : true }, //prod
@@ -91,17 +90,18 @@ var serverConfig = {
 var defaultConfig = {
   context: __dirname,
   resolve: {
-    root: root('/src')
+    modules: ['/src', 'node_modules']
   },
   output: {
     publicPath: path.resolve(__dirname),
     filename: 'index.js'
   }
-}
+};
 
 
 
 var webpackMerge = require('webpack-merge');
+
 module.exports = [
   // Client
   webpackMerge({}, defaultConfig, commonConfig, clientConfig),
