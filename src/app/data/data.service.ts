@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pack, Piece, PieceType, Minifig, Vehicle, Skill } from './data';
 import { Abilities } from './ability';
 import { Pieces } from './piece';
-import { packs } from './static-data';
+import {PackData, packs} from './static-data';
 import { minifigs } from './static-characters';
 import { vehicles } from './static-vehicles';
 import { Levels } from './levels';
@@ -200,9 +200,9 @@ export class DataService {
     }
 
     getAbilityCombos(except: Abilities) {
-        let result = new Abilities(this.getSkills([Ability.DivePlusDigging, Ability.DivePlusBoomerang, Ability.DivePlusChi, Ability.DivePlusDrone, 
-        Ability.DivePlusGhostImmunity, Ability.DivePlusGrapple, Ability.DivePlusHacking, Ability.DivePlusHazardCleaner, Ability.DivePlusLaser, 
-        Ability.DivePlusMini, Ability.DivePlusSilverDestroy, Ability.DivePlusSonarSmash, Ability.DivePlusSuperStrength, Ability.DivePlusTarget, 
+        let result = new Abilities(this.getSkills([Ability.DivePlusDigging, Ability.DivePlusBoomerang, Ability.DivePlusChi, Ability.DivePlusDrone,
+        Ability.DivePlusGhostImmunity, Ability.DivePlusGrapple, Ability.DivePlusHacking, Ability.DivePlusHazardCleaner, Ability.DivePlusLaser,
+        Ability.DivePlusMini, Ability.DivePlusSilverDestroy, Ability.DivePlusSonarSmash, Ability.DivePlusSuperStrength, Ability.DivePlusTarget,
         Ability.DivePlusTechnology, Ability.DivePlusTracking, Ability.DivePlusXRay, Ability.FlightPlusLaser]));
         if (except !== null) {
             result.removeRange(except);
@@ -220,7 +220,7 @@ export class DataService {
         if (except !== null) {
             result.removeRange(except);
         }
-        return result;        
+        return result;
     }
 
     getLevels() {
@@ -274,7 +274,7 @@ export class DataService {
         this.packMap = {};
         this.packs = [];
         for (let pack of packs) {
-            let p: Pack = Object.assign({}, pack);
+            let p: Pack = Object.assign(new Pack(), pack);
             p.minifigs = [];
             p.builds = [];
             p.mustHave = false;
@@ -285,7 +285,7 @@ export class DataService {
             p.released = this.waveMap[p.wave].released;
             this.packMap[pack.id] = p;
             this.packs.push(p);
-        }        
+        }
         for (let pack of this.packs) {
             this.waveMap[pack.wave].packs.push(pack);
         }
@@ -346,7 +346,7 @@ export class DataService {
 
         let mergedBuilds = this.mergeBuilds();
         for (let data of mergedBuilds) {
-            let vehicle: Vehicle = Object.assign({}, data);
+            let vehicle: Vehicle = Object.assign(new Vehicle(), data);
             vehicle.type = PieceType.Build;
             vehicle.skills = this.getSkills(data.skillIds);
             for (let skill of vehicle.skills) {

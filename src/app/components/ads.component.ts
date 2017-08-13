@@ -17,9 +17,9 @@ export class AdsComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		try {
-			(adsbygoogle = window.adsbygoogle || []).push({});
-		} catch (e) {
-		}
+		// try {
+		// 	(adsbygoogle = window.adsbygoogle || []).push({});
+		// } catch (e) {
+		// }
 	}
 }

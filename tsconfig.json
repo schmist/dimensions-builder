@@ -5,16 +5,14 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "target": "es5",
-    "module": "commonjs",
+    "lib": ["es6", "dom"],
     "removeComments": true,
-    "sourceMap": false
+    "sourceMap": false,
+    "typeRoots": ["./node_modules/@types"]
   },
   "exclude": [
     "node_modules",
-    "!node_modules/@types/**/*.d.ts",
-    "dist",
-    "typings/index.d.ts",
-    "typings/modules"
+    "dist"
   ],
   "compileOnSave": false,
   "buildOnSave": false,

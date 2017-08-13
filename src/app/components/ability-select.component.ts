@@ -4,16 +4,16 @@ import { Skill, FilterSkill, DataService, Abilities } from './../data/index';
 import * as Serializer from '../data/serializer';
 var document: Document;
 
-class SkillList { 
+class SkillList {
     list: FilterSkill[] = [];
     name: string;
 
     init(name: string, abilities: Abilities) {
         this.name = name;
-        
+
         for (let ability of abilities.list) {
             /*if (ability.providers.length > 0)*/ {
-                let filterSkill = Object.assign({}, ability);
+                let filterSkill = new FilterSkill(ability);
                 filterSkill.checked = false;
                 this.list.push(filterSkill);
             }
@@ -29,7 +29,7 @@ class SkillList {
     check(value: boolean) {
         for (let skill of this.list) {
             skill.checked = true;
-        }        
+        }
     }
 
     orderByProviders() {
@@ -90,7 +90,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
 
             for (let listIndex = 0; listIndex < this.skillLists.length; listIndex++)
                 this._updateRadios(listIndex);
-        }        
+        }
     }
 
     constructor(private dataService: DataService) {
@@ -145,7 +145,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
             }
         }
         else {
-            $('#abilityCollapse' + index).collapse('show');
+          (<any>$('#abilityCollapse' + index)).collapse('show');
             event.stopPropagation();
         }
 
@@ -163,7 +163,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
         let checked = skills.list[0].checked;
         let allAreSame = true;
         for (let skill of skills.list) {
-            allAreSame = allAreSame && (skill.checked == checked); 
+            allAreSame = allAreSame && (skill.checked == checked);
         }
         let value = (allAreSame ? (checked ? 1 : 0) : 2);
 
@@ -180,7 +180,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
         if (this.skillLists.length == 0) {
             return [];
         }
-        
+
         this.skills = [];
         this.selection = new Abilities([]);
 
@@ -210,7 +210,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
         this._updateAllSkills();
         if (this._query !== undefined && this._query.length > 0) {
             let query = Serializer.stringToAbilities(this._query);
-            
+
             for (let ability of this.skills) {
                 ability.checked = (-1 != query.indexOf(ability.id));
             }
