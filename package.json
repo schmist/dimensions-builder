@@ -17,7 +17,8 @@
     "url": "git://github.com/dimensions-builder/repository.git"
   },
   "contributors": [
-    "Jakob Harder <jharder@live.com>"
+    "Jakob Harder <jharder@live.com>",
+    "Stefan Schmid <schmist@gmail.com>"
   ],
   "dependencies": {
     "@angular/common": "2.0.0-rc.4",
