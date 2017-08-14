@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, Renderer2, Renderer} from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
-import { Abilities, AbilityType, DataService } from '../data';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { AbilityTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, AdsComponent } from '../components';
+import {AbilityType} from "../data/data-types";
+import {DataService} from "../data/data.service";
+import {Abilities} from "../data/ability";
 
 export enum AbilityListType {
     Rare,
@@ -14,10 +14,8 @@ export enum AbilityListType {
 }
 
 @Component({
-	moduleId: module.id,
 	selector: 'ability-list',
-	templateUrl: 'ability-list.component.html',
-    directives: [ROUTER_DIRECTIVES, ShareSectionComponent, AbilityTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent, AdsComponent]
+	templateUrl: 'ability-list.component.html'
 })
 export class AbilityListComponent implements OnInit, OnDestroy {
     sub: any;
@@ -37,13 +35,16 @@ export class AbilityListComponent implements OnInit, OnDestroy {
     isCombo: boolean;
     isYear2: boolean;
 
+    private meta;
+
     constructor(private data: DataService,
                 private route: ActivatedRoute,
-                private meta: MetaService) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
     ngOnInit() {
         this.meta.set(<MetaModel>{
-            title: "Character Abilities", 
+            title: "Character Abilities",
             description: "A complete overview list of all Character and Vehicle abilities and which Piece has them.",
             image: ''
         });
@@ -61,7 +62,7 @@ export class AbilityListComponent implements OnInit, OnDestroy {
                     this.abilities = this.unfiltered.getFilteredByType(AbilityType.Combo).orderByName();
                     this.listTitle = "Important Ability Combos Needed to Unlock Everything";
                     this.meta.set(<MetaModel>{
-                        title: this.listTitle, 
+                        title: this.listTitle,
                         description: "A complete list of all important Character and Vehicle ability combinations like dive + digging. They are required to unlock everyting in the game.",
             image: ''
                     });
@@ -71,7 +72,7 @@ export class AbilityListComponent implements OnInit, OnDestroy {
                     this.abilities = this.unfiltered.getRare().getFilteredByType(AbilityType.Normal).orderByName();
                     this.listTitle = "Exclusive and Rare Character and Vehicle Abilities";
                     this.meta.set(<MetaModel>{
-                        title: this.listTitle, 
+                        title: this.listTitle,
                         description: "A complete list of all unique and rare Character and Vehicle abilities and which Piece has them.",
             image: ''
                     });
@@ -81,7 +82,7 @@ export class AbilityListComponent implements OnInit, OnDestroy {
                     this.abilities = this.unfiltered.getYear2().getFilteredByType(AbilityType.Normal).orderByName();
                     this.listTitle = "Year 2 Character Abilities";
                     this.meta.set(<MetaModel>{
-                        title: this.listTitle, 
+                        title: this.listTitle,
                         description: "A complete list of all new Lego Dimensions year 2 character abilities with mapping to characters and vehicles.",
             image: ''
                     });
@@ -92,7 +93,7 @@ export class AbilityListComponent implements OnInit, OnDestroy {
                     this.abilities = this.unfiltered.getFilteredByType(AbilityType.Normal).orderByName();
                     this.listTitle = "Complete Character and Vehicle Ability List";
                     this.meta.set(<MetaModel>{
-                        title: this.listTitle, 
+                        title: this.listTitle,
                         description: "A complete overview list of all Character and Vehicle abilities and which Piece has them.",
             image: ''
                     });
@@ -119,7 +120,7 @@ export class AbilityListComponent implements OnInit, OnDestroy {
             }
         }
     }
-    
+
     ngOnDestroy() {
         this.sub.unsubscribe();
     }

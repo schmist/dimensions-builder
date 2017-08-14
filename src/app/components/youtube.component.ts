@@ -1,6 +1,5 @@
 import { Component, Input, Pipe, PipeTransform } from '@angular/core';
-import { SafeResourceUrl, DomSanitizationService } from '@angular/platform-browser';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 /*
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -11,10 +10,8 @@ export class SafePipe implements PipeTransform {
 } */
 
 @Component({
-	moduleId: module.id,
 	selector: 'cmp-youtube',
-	templateUrl: 'youtube.component.html',
-    directives: [ROUTER_DIRECTIVES]
+	templateUrl: 'youtube.component.html'
 })
 export class YoutubeComponent {
     @Input() set url(value: string) {
@@ -22,7 +19,7 @@ export class YoutubeComponent {
         this._updateUrl();
     }
     private _value: string;
-    private _url: SafeResourceUrl;
+    @Input() _url: SafeResourceUrl;
 
     @Input() set autoloop(value: boolean) {
         this._autoloop = value;
@@ -30,7 +27,7 @@ export class YoutubeComponent {
     }
     private _autoloop: boolean = false;
 
-    constructor(private sanitizer: DomSanitizationService) {
+    constructor(private sanitizer: DomSanitizer) {
     }
 
     private _updateUrl() {

@@ -1,44 +1,36 @@
 import { Component } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES, Event, NavigationEnd } from '@angular/router';
+import {NavigationEnd, Router, Event} from "@angular/router";
+
 declare let ga:Function;
 declare let window: Window;
 
-import { TopNavComponent } from './shared';
-import { DataService } from './data';
-import { MetaService } from './meta';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from './components';
-
 @Component({
-	moduleId: module.id,
-	selector: 'dimensions-builder',
-	templateUrl: 'app.component.html',
-	styleUrls: ['app.component.css'],
-	directives: [ROUTER_DIRECTIVES, TopNavComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent],
-	providers: [DataService, MetaService]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-	private sub: any;
+  title = 'app';
+  private sub: any;
 
-	constructor(public router: Router, 
-				private dataService: DataService,
-				private meta: MetaService) {
-	}
+  constructor(public router: Router) {
+  }
 
-	ngOnInit() {
-        this.sub = this.router.events.subscribe(
-            (event:Event) => {
-                if (event instanceof NavigationEnd) {
-					if (typeof ga === "function") {
-						ga('send', 'pageview', event.urlAfterRedirects);
-					}
-					if (typeof window != 'undefined') {
-						window.scroll(0, 0);
-					}
-                }
-            });
-	}
+  public ngOnInit() {
+    this.sub = this.router.events.subscribe(
+      (event:Event) => {
+        if (event instanceof NavigationEnd) {
+          if (typeof ga === "function") {
+            ga('send', 'pageview', event.urlAfterRedirects);
+          }
+          if (typeof window != 'undefined') {
+            window.scroll(0, 0);
+          }
+        }
+      });
+  }
 
-	ngOnDestroy() {
-		this.sub.unsubscribe();
-	}
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

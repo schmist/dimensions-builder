@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import {Component, Input, OnInit, Renderer} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { DataService, Level, Abilities, Piece } from '../data';
-import { AbilityTableComponent, PieceTableComponent } from '../components/tables';
 import * as Serializer from './../data/serializer';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent } from '../components';
+import {Abilities} from "../data/ability";
+import {Level} from "../data/levels";
+import {Piece} from "../data/data";
+import {DataService} from "../data/data.service";
+
 
 @Component({
-	moduleId: module.id,
-	templateUrl: 'level-details.component.html',
-    directives: [ROUTER_DIRECTIVES, AbilityTableComponent, PieceTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent,
-    YoutubeComponent]
+	templateUrl: 'level-details.component.html'
 })
 export class LevelDetailsComponent implements OnInit {
     sub: any;
@@ -23,13 +22,16 @@ export class LevelDetailsComponent implements OnInit {
     allAbilities: Abilities;
 
     serialized: string;
-    private levelAccess: string;
-    private charactersWithAccess: Piece[];
-    private characterWithAccess: Piece;
+    @Input() levelAccess: string;
+    @Input() charactersWithAccess: Piece[];
+    @Input() characterWithAccess: Piece;
+
+    private meta;
 
     constructor(private route: ActivatedRoute,
                 private data: DataService,
-                private meta: MetaService ) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
 
     ngOnInit() {

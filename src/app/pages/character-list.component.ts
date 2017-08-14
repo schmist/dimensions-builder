@@ -1,23 +1,24 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import {Component, OnInit, ElementRef, Renderer2, Renderer} from '@angular/core';
 import { MetaService, MetaModel } from '../meta';
-import { Piece, DataService, Pieces } from '../data';
-import { PieceTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import {Piece} from "../data/data";
+import {DataService} from "../data/data.service";
+import {Pieces} from "../data/piece";
+import {Router} from "@angular/router";
 
 @Component({
-	moduleId: module.id,
 	selector: 'character-list',
-	templateUrl: 'character-list.component.html',
-    directives: [ROUTER_DIRECTIVES, PieceTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent ]
+	templateUrl: 'character-list.component.html'
 })
 
 export class CharacterListComponent implements OnInit {
     characters: Piece[];
     private scrollUp: any;
 
+    private meta;
+
     constructor(private dataService: DataService,
-                private meta: MetaService) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
 
     ngOnInit() {

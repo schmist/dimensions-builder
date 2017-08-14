@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-	moduleId: module.id,
 	selector: 'share-button',
     styles: [`
     div.btn-group a {
@@ -53,6 +52,6 @@ export class ShareButtonComponent {
     @Input() set url(value: string) {
         this._url = value;
     }
-    private _url: string;
+    @Input() _url: string;
     @Input() type: string;
 }

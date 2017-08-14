@@ -3,7 +3,6 @@ import { MetaModel } from './meta.model';
 import { MetaService } from './meta.service';
 
 @Component({
-	moduleId: module.id,
 	selector: 'head',
 	templateUrl: 'head.component.html'
 })

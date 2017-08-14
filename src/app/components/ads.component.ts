@@ -1,7 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
 
 @Component({
-	moduleId: module.id,
 	selector: 'cmp-ads',
 	templateUrl: './ads.component.html'
 })
@@ -17,9 +16,9 @@ export class AdsComponent implements AfterViewInit {
 	}
 
 	ngAfterViewInit() {
-		// try {
-		// 	(adsbygoogle = window.adsbygoogle || []).push({});
-		// } catch (e) {
-		// }
+		try {
+			//(adsbygoogle = window.adsbygoogle || []).push({});
+		} catch (e) {
+		}
 	}
 }

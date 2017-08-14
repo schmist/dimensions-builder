@@ -1,35 +1,35 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Renderer} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { Pack, Piece, Pieces, Skill, DataService, packTypeStrings, Abilities } from '../data';
-import { MinifigPanelComponent } from '../components';
-import { AbilityTableComponent, PieceTableComponent, LevelTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent } from '../components';
+import {DataService} from "../data/data.service";
+import {Pieces} from "../data/piece";
+import {Abilities} from "../data/ability";
+import {Pack, packTypeStrings} from "../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'pack-details',
-    styleUrls: ['pack-details.component.css'],
-	templateUrl: 'pack-details.component.html',
-    directives: [ROUTER_DIRECTIVES, MinifigPanelComponent, AbilityTableComponent, PieceTableComponent, LevelTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent]
+  styleUrls: ['pack-details.component.css'],
+	templateUrl: 'pack-details.component.html'
 })
 export class PackDetailsComponent implements OnInit, OnDestroy {
     sub: any;
-    pack: Pack;
+    @Input() pack: Pack;
     private characters: Pieces;
-    private builds: Pieces;
-    private pieces: Pieces;
-    private skills: Abilities;
-    private buildAbilities: Abilities;
-    private type: string;
-    private mustHave: boolean = false;
-    private mustHaveText: string;
-    private description: string;
+    @Input() builds: Pieces;
+    @Input() pieces: Pieces;
+    @Input() skills: Abilities;
+    @Input() buildAbilities: Abilities;
+    @Input() type: string;
+    @Input() mustHave: boolean = false;
+    @Input() mustHaveText: string;
+    @Input() description: string;
+
+    private meta;
 
     constructor(private route: ActivatedRoute,
                 private dataService: DataService,
-                private meta: MetaService) {
-
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
 
     ngOnInit() {

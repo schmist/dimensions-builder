@@ -1,7 +1,8 @@
 import { Component, Input, Output, OnInit, EventEmitter, AfterViewInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Skill, FilterSkill, DataService, Abilities } from './../data/index';
 import * as Serializer from '../data/serializer';
+import {FilterSkill} from "../data/data";
+import {Abilities} from "../data/ability";
+import {DataService} from "../data/data.service";
 var document: Document;
 
 class SkillList {
@@ -60,11 +61,9 @@ export class AbilitySelection {
 }
 
 @Component({
-	moduleId: module.id,
 	selector: 'ability-select',
 	templateUrl: 'ability-select.component.html',
-    styleUrls: ['ability-select.component.css'],
-    directives: [ROUTER_DIRECTIVES]
+  styleUrls: ['ability-select.component.css']
 })
 export class AbilitySelectComponent implements OnInit, AfterViewInit {
     skillIds: number[] = [];
@@ -145,7 +144,11 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
             }
         }
         else {
-          (<any>$('#abilityCollapse' + index)).collapse('show');
+            if (document) {
+              let targetId = '#abilityCollapse' + index;
+              (<any>(document.querySelector(targetId))).collapse('show');
+            }
+            //$('#abilityCollapse' + index).collapse('show');
             event.stopPropagation();
         }
 
@@ -167,9 +170,11 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
         }
         let value = (allAreSame ? (checked ? 1 : 0) : 2);
 
-        if (true /*document*/) {
+        if (document) {
             // server-side rendering does not care about the selection
-            let radio = $('#option' + value + '-' + index);
+            let targetId = '#option' + value + '-' + index;
+            let radio = <any>document.querySelector(targetId);
+            //let radio = $('#option' + value + '-' + index);
             radio.prop("checked", true);
             radio.parent().parent().children('.active').removeClass("active");
             radio.parent().addClass("active");

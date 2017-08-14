@@ -1,15 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { DataService, Piece, PieceType } from '../../data';
-import { LimitFilter } from './common';
+import {Piece} from "../../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'cmp-piece-table',
 	styleUrls: ['table.component.css'],
-	templateUrl: 'piece-table.component.html',
-	pipes: [LimitFilter],
-	directives: [ROUTER_DIRECTIVES]
+	templateUrl: 'piece-table.component.html'
 })
 export class PieceTableComponent {
     @Input() pieces: Piece[];

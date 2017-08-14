@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Pack, Piece, PieceType, Minifig, Vehicle, Skill } from './data';
 import { Abilities } from './ability';
 import { Pieces } from './piece';
-import {PackData, packs} from './static-data';
+import { packs } from './static-data';
 import { minifigs } from './static-characters';
 import { vehicles } from './static-vehicles';
 import { Levels } from './levels';

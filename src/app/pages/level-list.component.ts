@@ -1,29 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import {Component, Input, OnInit, Renderer} from '@angular/core';
 import { MetaService, MetaModel } from '../meta';
-import { Level, Levels, LevelCollection, DataService } from '../data';
-import { LevelTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import {DataService} from "../data/data.service";
+import {LevelCollection, Levels} from "../data/levels";
+import {Router} from "@angular/router";
 
 @Component({
-	moduleId: module.id,
-	templateUrl: 'level-list.component.html',
-    directives: [ROUTER_DIRECTIVES, LevelTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent]
+	templateUrl: 'level-list.component.html'
 })
 export class LevelListComponent implements OnInit {
-    private levels: Levels;
-    private collections: LevelCollection[];
-    private description: string;
+    @Input() levels: Levels;
+    @Input() collections: LevelCollection[];
+    @Input() description: string;
+
+    private meta;
 
     constructor(private data: DataService,
-                private meta: MetaService ) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
 
     ngOnInit() {
         this.levels = this.data.getLevels();
         this.collections = this.levels.getCollections();
 
-        this.description = `Find out the character abilities to complete a Lego Dimensions level or Adventure World. 
+        this.description = `Find out the character abilities to complete a Lego Dimensions level or Adventure World.
             The list now includes all wave 6 (year 2) levels, story chapters and Adventure Worlds.
             Year 1 data is not complete yet, but will follow soon.`;
 

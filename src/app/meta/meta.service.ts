@@ -1,16 +1,14 @@
-import { Injectable, EventEmitter, Inject, ElementRef, Renderer } from '@angular/core';
+import {Injectable, EventEmitter, Inject, ElementRef, Renderer, Renderer2} from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MetaModel } from './meta.model';
 
-@Injectable()
 export class MetaService {
     public url: EventEmitter<string> = new EventEmitter<string>();
     public _url: string;
     public _safeurl: string;
 
     private _r: Renderer;
-    private _el: ElementRef;
     private _document: any;
 
     private headElement: any;//HTMLElement;
@@ -21,16 +19,14 @@ export class MetaService {
     private ogDescription: HTMLElement;
     private description: HTMLElement;
     private canonical: HTMLElement;
+    private router: Router;
 
-    constructor(@Inject(DOCUMENT) private document, 
-                @Inject(Router) private router,
-                element: ElementRef, 
-                renderer: Renderer) {
-        this._el = element;
+    constructor(renderer: Renderer, router: Router) {
         this._r = renderer;
-        
+
         this._document = document;
         this.headElement = this._document.head;
+        this.router = router;
 
         this.ogTitle = this.getOrCreateMetaElement('og:title', 'property');
         this.ogImage = this.getOrCreateMetaElement('og:image', 'property');
@@ -79,14 +75,14 @@ export class MetaService {
     private getOrCreateMetaElement(name: string,attr: string): HTMLElement {
         let el: HTMLElement;
         var prop = ((attr != null)? attr : 'name');
-        el = this._r.createElement(this.headElement, 'meta', null);
+        el = this._r.createElement(this.headElement, 'meta');
         this._r.setElementAttribute(el, prop, name);
         return el;
     }
 
     private getOrCreateCanonical(): HTMLElement {
         let el: HTMLElement;
-        el = this._r.createElement(this.headElement, 'link', null);
+        el = this._r.createElement(this.headElement, 'link');
         this._r.setElementAttribute(el, 'rel', 'canonical');
         return el;
     }

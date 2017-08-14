@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Renderer, Renderer2} from '@angular/core';
 import { MetaService, MetaModel } from '../meta';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
-import { Skill, Vehicle, Piece, Pieces, AbilitiesOrdered, DataService } from '../data';
-import { MinifigPanelComponent } from '../components';
-import { PieceTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent, AdsComponent, AmazonComponent } from '../components';
+import {ActivatedRoute, Router} from '@angular/router';
+import {DataService} from "../data/data.service";
+import {Pieces} from "../data/piece";
+import {Piece, Skill} from "../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'ability-list',
-	templateUrl: 'ability-details.component.html',
-    directives: [ROUTER_DIRECTIVES, MinifigPanelComponent, PieceTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent, 
-        YoutubeComponent, AdsComponent, AmazonComponent]
+	templateUrl: 'ability-details.component.html'
 })
 export class AbilityDetailsComponent implements OnInit {
     sub: any;
@@ -22,11 +18,14 @@ export class AbilityDetailsComponent implements OnInit {
     unique: Piece = null;
     buildsOnly: boolean = false;
     charactersOnly: boolean = false;
-    private description: string;
+    @Input() description: string;
+
+    private meta;
 
     constructor(private route: ActivatedRoute,
                 private data: DataService,
-                private meta: MetaService ) {
+                renderer: Renderer, router: Router ) {
+      this.meta = new MetaService(renderer, router);
     }
 
     ngOnInit() {

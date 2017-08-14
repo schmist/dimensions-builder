@@ -1,15 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Skill, BuilderTag, DataService } from '../../data';
-import { LimitFilter } from './common';
+import {Skill} from "../../data/data";
 
 @Component({
 	moduleId: module.id,
 	selector: 'cmp-ability-table',
 	styleUrls: ['table.component.css'],
-	templateUrl: 'ability-table.component.html',
-	pipes: [LimitFilter],
-	directives: [ROUTER_DIRECTIVES]
+	templateUrl: 'ability-table.component.html'
 })
 export class AbilityTableComponent {
     @Input() abilities: Skill[];

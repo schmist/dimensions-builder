@@ -1,10 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES, Event, NavigationEnd } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Renderer2, Renderer} from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { MetaService } from '../meta';
-import { ShareButtonComponent } from './basic';
 
 @Component({
-	moduleId: module.id,
 	selector: 'share-section',
 	templateUrl: './share-section.component.html',
 	styles: [`share-button {
@@ -21,14 +19,16 @@ import { ShareButtonComponent } from './basic';
             width: 25%;
         }
     }
-	`],
-	directives: [ShareButtonComponent]
+	`]
 })
 export class ShareSectionComponent implements OnInit, OnDestroy {
-	private url: string;
+	@Input() url: string;
 	private sub: any;
 
-	constructor(private meta: MetaService) {
+	private meta;
+
+	constructor(renderer: Renderer, router: Router) {
+	  this.meta = new MetaService(renderer, router);
 	}
 
 	ngOnInit() {

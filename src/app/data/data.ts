@@ -17,6 +17,7 @@ export class Pack {
     amazon: string;
     access: Level[];
     exclusiveAccess: boolean;
+    video: string;
 
     get mustBuy(): boolean {
         return this.mustHave || this.exclusiveAccess;
@@ -123,7 +124,7 @@ export class Piece {
                     }
                 }
                 groups[0].removeRange(groups[index]);
-                index ++;            
+                index ++;
             }
         }
 

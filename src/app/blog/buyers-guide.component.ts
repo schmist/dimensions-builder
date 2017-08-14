@@ -1,32 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Renderer, Renderer2} from '@angular/core';
 import { MetaService, MetaModel } from './../meta';
-import { PackTableComponent } from '../components/tables';
-import { Pack, DataService } from '../data';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import {DataService} from "../data/data.service";
+import {Pack} from "../data/data";
+import {Router} from "@angular/router";
 
 @Component({
-	moduleId: module.id,
-	templateUrl: 'buyers-guide.component.html',
-    directives: [PackTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent]
+	templateUrl: 'buyers-guide.component.html'
 })
 export class BuyersGuideComponent implements OnInit {
-    private title: string;
-    private storyPacks: Pack[];
-    private storyComments: string[];
-    private levelPacks: Pack[];
-    private levelComments: string[];
-    private teamPacks: Pack[];
-    private teamComments: string[];
-    private funPacks: Pack[];
-    private funComments: string[];
+    @Input() title: string;
+    @Input() storyPacks: Pack[];
+    @Input() storyComments: string[];
+    @Input() levelPacks: Pack[];
+    @Input() levelComments: string[];
+    @Input() teamPacks: Pack[];
+    @Input() teamComments: string[];
+    @Input() funPacks: Pack[];
+    @Input() funComments: string[];
 
-    private top3Packs: Pack[];
-    private top3Comments: string[];
-    
-    constructor(private meta: MetaService,
-                private data: DataService) {
+    @Input() top3Packs: Pack[];
+    @Input() top3Comments: string[];
+
+    private meta;
+
+    constructor(private data: DataService, renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
     }
-    
+
     ngOnInit() {
         this.title = "A Lego Dimensions Buyer's Guide to Year 2";
         this.meta.set(<MetaModel>{
@@ -35,8 +35,8 @@ export class BuyersGuideComponent implements OnInit {
         });
 
         this.storyPacks = this.data.getPacks([71253, 71242, 71264]);
-        this.storyComments = ['Will be released with wave 7 in November 2016.', 
-            'Abby Yates comes with many abilities like Rope Swings, Super Strength, Technology besides the Charge Transfer and obvious Ghostbusting abilities. If you consider to buy only very view Packs this is a good choice. Especially if you do not own the Ghostbusters Level Pack.', 
+        this.storyComments = ['Will be released with wave 7 in November 2016.',
+            'Abby Yates comes with many abilities like Rope Swings, Super Strength, Technology besides the Charge Transfer and obvious Ghostbusting abilities. If you consider to buy only very view Packs this is a good choice. Especially if you do not own the Ghostbusters Level Pack.',
             'Will be released with wave 7.5 in February 2017'];
 
         this.levelPacks = this.data.getPacks([71245, 71201, 71204, 71228, 71235, 71248, 71203, 90000, 71202, 71244]);
@@ -52,10 +52,10 @@ export class BuyersGuideComponent implements OnInit {
             ''];
 
         this.teamPacks = this.data.getPacks([71246, 71256, 71247, 71205, 71206]);
-        this.teamComments = ['Needed for BMO Docks Ability. Jake has many abilities like Drilling, Digging, Super Strength and Dive.', 
-            'Needed for Gremlins Adventure World', 
-            'Parseltongue and Diffindo ability. Both of them are used in other levels to get minikits.', 
-            'Jurassic World Adventure World. Not recommended if you do not care about 100% and Jurassic World. Get the Adventure Time Level Pack instead.', 
+        this.teamComments = ['Needed for BMO Docks Ability. Jake has many abilities like Drilling, Digging, Super Strength and Dive.',
+            'Needed for Gremlins Adventure World',
+            'Parseltongue and Diffindo ability. Both of them are used in other levels to get minikits.',
+            'Jurassic World Adventure World. Not recommended if you do not care about 100% and Jurassic World. Get the Adventure Time Level Pack instead.',
             'Scooby Doo Adventure World. Scooby Doo is the only character with Digging underwater. Adventure Time Team Pack may be a better choice.'];
 
         this.funPacks = this.data.getPacks([71251, 71237, 71223, 71238, 71258, 71286, 90001, 71234, 71241, 71221]);

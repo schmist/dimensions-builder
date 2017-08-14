@@ -1,17 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Piece, DataService, packTypeStrings } from './../data/index';
+import {packTypeStrings, Piece} from "../data/data";
+import {DataService} from "../data/data.service";
 
 @Component({
 	moduleId: module.id,
 	selector: 'minifig-panel',
 	templateUrl: 'minifig-panel.component.html',
-    styleUrls: ['minifig-panel.component.css'],
-    directives: [ROUTER_DIRECTIVES]
+  styleUrls: ['minifig-panel.component.css']
 })
 
 export class MinifigPanelComponent {
-    private packName: string;
+    @Input() packName: string;
     private _piece: Piece;
 
     constructor(private data: DataService) {

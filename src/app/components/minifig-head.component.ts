@@ -1,13 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Minifig } from './../data/index';
+import {Minifig} from "../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'minifig-head',
 	template: '<img src="/assets/images/21/{{minifig.image}}.png">',
-    styles: ['img { width: 16px; height: 21px; }'],
-    directives: [ROUTER_DIRECTIVES]
+  styles: ['img { width: 16px; height: 21px; }']
 })
 
 export class MinifigHeadComponent {

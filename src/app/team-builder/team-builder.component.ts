@@ -1,36 +1,38 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Renderer} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { Abilities, Piece, Skill, FilterSkill, DataService, MinifigList } from '../data/index';
-import { MinifigPanelComponent, AbilitySelectComponent, PanelButtonComponent, AbilitySelection } from '../components/index';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import {FilterSkill, Piece, Skill} from "../data/data";
+import {MinifigList} from "../data/minifig-list";
+import {DataService} from "../data/data.service";
+import {AbilitySelection} from "../components/ability-select.component";
 
 @Component({
-	moduleId: module.id,
 	selector: 'team-builder',
 	templateUrl: 'team-builder.component.html',
-    styleUrls: ['team-builder.component.css'],
-    directives: [ROUTER_DIRECTIVES, MinifigPanelComponent, AbilitySelectComponent, PanelButtonComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent]
+  styleUrls: ['team-builder.component.css']
 })
 export class TeamBuilderComponent implements OnInit {
-    skills: FilterSkill[] = [];
-    team = new MinifigList;
-    proposedMinifigs = new MinifigList;
-    teamSkills: Skill[] = [];
-    extraSkills: number[] = [];
+    @Input() skills: FilterSkill[] = [];
+    @Input() team = new MinifigList;
+    @Input() proposedMinifigs = new MinifigList;
+    @Input() teamSkills: Skill[] = [];
+    @Input() extraSkills: number[] = [];
     sub: any;
-    queryAbilities: string;
+    @Input() queryAbilities: string;
 
-    currentSkillIndex: number = 0;
-    
-    urlAbilities: string;
-    skip = false;
+    @Input() currentSkillIndex: number = 0;
 
-    private levelName: string;
+    @Input() urlAbilities: string;
+    @Input() skip = false;
+
+    @Input() levelName: string;
+
+    private meta;
 
     constructor(private route: ActivatedRoute,
                 private data: DataService,
-                private meta: MetaService) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
 
     }
 
@@ -74,7 +76,7 @@ export class TeamBuilderComponent implements OnInit {
 
     skipAbility() {
         if (this.currentSkillIndex < this.skills.length) {
-            this.skills[this.currentSkillIndex].checked = false;  
+            this.skills[this.currentSkillIndex].checked = false;
             this.skip = true;
         }
     }
@@ -88,7 +90,7 @@ export class TeamBuilderComponent implements OnInit {
         this.teamSkills = this.data.getSkills(this.extraSkills);
 
         this.currentSkillIndex = 0;
-        while (this.currentSkillIndex < this.skills.length && 
+        while (this.currentSkillIndex < this.skills.length &&
             (this.skills[this.currentSkillIndex].fullfilled || !this.skills[this.currentSkillIndex].checked)) {
             this.currentSkillIndex++;
         }

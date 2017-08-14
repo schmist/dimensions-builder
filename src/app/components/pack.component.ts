@@ -1,11 +1,10 @@
 import {Component, Input} from '@angular/core';
-import {Pack} from './../data/index';
+import {Pack} from "../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'lego-pack',
 	templateUrl: './pack.component.html',
-    styleUrls: ['./pack.component.css']
+  styleUrls: ['./pack.component.css']
 })
 
 export class PackComponent {

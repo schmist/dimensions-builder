@@ -1,12 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { Minifig } from './../data/index';
+import {Minifig} from "../data/data";
 
 @Component({
-	moduleId: module.id,
 	selector: 'minifig-textlink',
-	template: `<a [routerLink]="[\'/character/\' + minifig.id]">{{minifig.name}}</a>`,
-    directives: [ROUTER_DIRECTIVES]
+	template: `<a [routerLink]="[\'/character/\' + minifig.id]">{{minifig.name}}</a>`
 })
 
 export class MinifigTextlinkComponent {

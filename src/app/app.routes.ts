@@ -1,24 +1,20 @@
-import { provideRouter, RouterConfig } from '@angular/router';
-
-import {
-	WaveListComponent,
-	WaveDetailsComponent,
-	PackDetailsComponent,
-	CharacterListComponent,
-	CharacterDetailsComponent,
-	AbilityListComponent,
-	AbilityListType,
-	HomeComponent,
-	AbilityDetailsComponent,
-	LevelDetailsComponent,
-	LevelListComponent
-} from './pages';
+import { Routes } from '@angular/router';
 import {
 	BuyersGuideComponent
 } from './blog';
-import { TeamBuilderComponent } from './team-builder';
+import {TeamBuilderComponent} from "./team-builder/team-builder.component";
+import {HomeComponent} from "./pages/home.component";
+import {WaveListComponent} from "./pages/wave-list.component";
+import {WaveDetailsComponent} from "./pages/wave-details.component";
+import {PackDetailsComponent} from "./pages/pack-details.component";
+import {CharacterListComponent} from "./pages/character-list.component";
+import {CharacterDetailsComponent} from "./pages/character-details.component";
+import {AbilityListComponent, AbilityListType} from "./pages/ability-list.component";
+import {AbilityDetailsComponent} from "./pages/ability-details.component";
+import {LevelListComponent} from "./pages/level-list.component";
+import {LevelDetailsComponent} from "./pages/level-details.component";
 
-export const routes: RouterConfig = [
+export const ROUTES: Routes = [
 	{ path: '', component: HomeComponent, pathMatch: 'full' },
 	{ path: 'all-waves-and-packs', component: WaveListComponent },
 	{ path: 'wave/:id', component: WaveDetailsComponent },

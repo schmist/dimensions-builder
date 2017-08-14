@@ -1,26 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import {Component, Input, OnInit, Renderer} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { Piece, Wave, DataService } from '../data';
-import { PackTableComponent, PieceTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent } from '../components';
+import {Wave} from "../data/wave";
+import {Piece} from "../data/data";
+import {DataService} from "../data/data.service";
 
 @Component({
-	moduleId: module.id,
 	selector: 'page-wave-details',
 	templateUrl: 'wave-details.component.html',
-	directives: [ROUTER_DIRECTIVES, PackTableComponent, PieceTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent],
 })
 export class WaveDetailsComponent implements OnInit {
 	private sub: any;
-	private wave: Wave;
-	private description: string;
-	private characters: Piece[] = [];
-	private builds: Piece[] = [];
+  @Input() wave: Wave;
+  @Input() description: string;
+  @Input() characters: Piece[] = [];
+  @Input() builds: Piece[] = [];
+
+  private meta;
 
 	constructor(private route: ActivatedRoute,
 				private data: DataService,
-				private meta: MetaService) {
+              renderer: Renderer, router: Router) {
+    this.meta = new MetaService(renderer, router);
 	}
 
 	ngOnInit() {
@@ -58,7 +59,7 @@ export class WaveDetailsComponent implements OnInit {
 				title: "All packs in wave " + this.wave.number,
 				description: desc,
 				image: '/assets/images/' + this.wave.image + '.jpg'
-			});	
+			});
 		});
 	}
 }

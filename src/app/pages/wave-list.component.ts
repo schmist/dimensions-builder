@@ -1,23 +1,22 @@
-import { Component, Pipe, Injectable, PipeTransform, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import {Component, Pipe, Injectable, PipeTransform, OnInit, Input, Renderer} from '@angular/core';
+import { Router } from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { Wave, DataService } from '../data';
-import { PackTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import {Wave} from "../data/wave";
+import {DataService} from "../data/data.service";
 
 @Component({
-	moduleId: module.id,
 	selector: 'page-wave-list',
 	templateUrl: 'wave-list.component.html',
-	directives: [ROUTER_DIRECTIVES, PackTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent],
 })
 export class WaveListComponent implements OnInit {
-	private waves: Wave[] = [];
-	private description: string;
+  @Input() waves: Wave[] = [];
+  @Input() description: string;
 
-	constructor(private router: Router, 
-				private dataService: DataService,
-				private meta: MetaService) {
+  private meta;
+
+	constructor(private dataService: DataService,
+              renderer: Renderer, router: Router) {
+    this.meta = new MetaService(renderer, router);
 	}
 
 	ngOnInit() {
@@ -38,6 +37,6 @@ export class WaveListComponent implements OnInit {
 		this.meta.set(<MetaModel>{
 			title: "Complete list of all Lego Dimensions packs",
 			description: desc
-		});	
+		});
 	}
 }

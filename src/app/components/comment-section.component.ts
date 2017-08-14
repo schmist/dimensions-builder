@@ -1,19 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES, Event, NavigationEnd } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Renderer2, Renderer} from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { MetaService } from '../meta';
 //var document: Document;
 
 @Component({
-	moduleId: module.id,
 	selector: 'comment-section',
 	templateUrl: './comment-section.component.html'
 })
 export class CommentSectionComponent implements OnInit, OnDestroy {
-	private url: string;
+	@Input() url: string;
 	private sub: any;
 	loadAPI: Promise<any>;
 
-	constructor(private meta: MetaService) {
+	private meta;
+
+	constructor(renderer: Renderer, router: Router) {
+	  this.meta = new MetaService(renderer, router);
 	}
 
 	ngOnInit() {
@@ -43,13 +45,13 @@ export class CommentSectionComponent implements OnInit, OnDestroy {
 			console.log('preparing to reset...')
 			DISQUS.reset({
 				reload: true,
-				config: function () {  
+				config: function () {
 					this.page.identifier = this.url;
 				}
 			});
 		}
 		else*/
-		{	
+		{
 			let node = document.createElement('script');
 			node.id = 'disqus_script';
 			node.src = 'http://dimensions-builder.disqus.com/embed.js';

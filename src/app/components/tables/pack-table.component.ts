@@ -1,15 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
-import { DataService, Pack, PackType, packTypeStrings } from '../../data';
-import { LimitFilter } from './common';
+import {Pack, packTypeStrings} from "../../data/data";
 
 @Component({
 	moduleId: module.id,
 	selector: 'cmp-pack-table',
 	styleUrls: ['table.component.css'],
-	templateUrl: 'pack-table.component.html',
-	pipes: [LimitFilter],
-	directives: [ROUTER_DIRECTIVES]
+	templateUrl: 'pack-table.component.html'
 })
 export class PackTableComponent {
     @Input() packs: Pack[];
@@ -17,5 +13,5 @@ export class PackTableComponent {
 	@Input() amazon: boolean;
 	@Input() labels: boolean = true;
 
-	private typeStrings = packTypeStrings;
+  @Input() typeStrings = packTypeStrings;
 }

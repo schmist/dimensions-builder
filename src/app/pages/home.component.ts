@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, Renderer, Renderer2} from '@angular/core';
 import { MetaService, MetaModel } from '../meta';
-import { ROUTER_DIRECTIVES, Router } from '@angular/router';
-import { Piece, Pieces, DataService } from '../data';
-import { PieceTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent } from '../components';
+import { Router } from '@angular/router';
+import {Piece} from "../data/data";
+import {DataService} from "../data/data.service";
+import {Pieces} from "../data/piece";
 
 @Component({
-	moduleId: module.id,
 	selector: 'home-cmp',
-	templateUrl: 'home.component.html',
-	directives: [ROUTER_DIRECTIVES, PieceTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent],
+	templateUrl: 'home.component.html'
 })
 export class HomeComponent implements OnInit {
-	private mostSkills: Piece[];
+	@Input() mostSkills: Piece[];
 
-	constructor(private router: Router, 
-				private dataService: DataService,
-				private meta: MetaService) {
+	private meta;
+
+	constructor(private dataService: DataService,
+              renderer: Renderer, router: Router) {
+    this.meta = new MetaService(renderer, router);
 	}
 
 	ngOnInit() {

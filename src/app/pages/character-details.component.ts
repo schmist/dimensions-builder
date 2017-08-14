@@ -1,29 +1,30 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, OnDestroy, Input, Renderer2, Renderer} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 import { MetaService, MetaModel } from '../meta';
-import { Pack, Piece, DataService, PieceState, Abilities } from '../data';
-import { AbilityTableComponent, PackTableComponent } from '../components/tables';
-import { ShareSectionComponent, CommentSectionComponent, NavSectionComponent, YoutubeComponent, AdsComponent, AmazonComponent } from '../components';
+import {Pack, Piece} from "../data/data";
+import {Abilities} from "../data/ability";
+import {DataService} from "../data/data.service";
+import {PieceState} from "../data/data-types";
 
 @Component({
-	moduleId: module.id,
 	selector: 'page-character-details',
-	templateUrl: 'character-details.component.html',
-    directives: [ROUTER_DIRECTIVES, AbilityTableComponent, PackTableComponent, ShareSectionComponent, CommentSectionComponent, NavSectionComponent, 
-        YoutubeComponent, AdsComponent, AmazonComponent]
+	templateUrl: 'character-details.component.html'
 })
 export class CharacterDetailsComponent implements OnInit, OnDestroy {
     sub: any;
     pack: Pack;
-    private character: Piece;
-    private mustHave: boolean = false;
-    private description: string;
-    private workInProgress: string;
-    private groupedAbilities: Abilities[];
+    @Input() character: Piece;
+    @Input() mustHave: boolean = false;
+    @Input() description: string;
+    @Input() workInProgress: string;
+    @Input() groupedAbilities: Abilities[];
+
+    private meta;
 
     constructor(private route: ActivatedRoute,
                 private dataService: DataService,
-                private meta: MetaService) {
+                renderer: Renderer, router: Router) {
+      this.meta = new MetaService(renderer, router);
 
     }
 
