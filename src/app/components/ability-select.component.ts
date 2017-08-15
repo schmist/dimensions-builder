@@ -72,7 +72,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
 
     selection: Abilities = new Abilities([]);
 
-    @Output() changed: EventEmitter<AbilitySelection> = new EventEmitter<AbilitySelection>();
+    @Output() changed: EventEmitter<AbilitySelection> = new EventEmitter<AbilitySelection>(true);
     urlParameter = "";
 
     _query: string;
