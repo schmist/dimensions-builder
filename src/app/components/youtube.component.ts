@@ -1,5 +1,5 @@
-import { Component, Input, Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
+import { Component, Input } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
 /*
 @Pipe({ name: 'safe' })
 export class SafePipe implements PipeTransform {
@@ -19,7 +19,7 @@ export class YoutubeComponent {
         this._updateUrl();
     }
     private _value: string;
-    @Input() _url: SafeResourceUrl;
+    @Input() _url: SafeResourceUrl | string; // FIXME: STRING ADDED TO REMOVE WARNING
 
     @Input() set autoloop(value: boolean) {
         this._autoloop = value;
