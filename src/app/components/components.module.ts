@@ -6,7 +6,6 @@ import {CommonModule} from "@angular/common";
 import {RouterModule} from "@angular/router";
 import {ROUTES} from "../app.routes";
 import {AbilitySelectComponent} from "./ability-select.component";
-import {AdsComponent} from "./ads.component";
 import {NavSectionComponent} from "./nav-section.component";
 import {PackComponent} from "./pack.component";
 import {PanelButtonComponent} from "./panel-button.component";
@@ -22,7 +21,6 @@ import {MetaService} from "../meta/meta.service";
     MinifigPanelComponent,
     MinifigTextlinkComponent,
     AbilitySelectComponent,
-    AdsComponent,
     NavSectionComponent,
     PackComponent,
     PanelButtonComponent,
@@ -40,7 +38,6 @@ import {MetaService} from "../meta/meta.service";
     MinifigPanelComponent,
     MinifigTextlinkComponent,
     AbilitySelectComponent,
-    AdsComponent,
     NavSectionComponent,
     PackComponent,
     PanelButtonComponent,
