@@ -7,7 +7,6 @@ import {RouterModule} from "@angular/router";
 import {ROUTES} from "../app.routes";
 import {AbilitySelectComponent} from "./ability-select.component";
 import {AdsComponent} from "./ads.component";
-import {AmazonComponent} from "./amazon.component";
 import {CommentSectionComponent} from "./comment-section.component";
 import {NavSectionComponent} from "./nav-section.component";
 import {PackComponent} from "./pack.component";
@@ -25,7 +24,6 @@ import {MetaService} from "../meta/meta.service";
     MinifigTextlinkComponent,
     AbilitySelectComponent,
     AdsComponent,
-    AmazonComponent,
     CommentSectionComponent,
     NavSectionComponent,
     PackComponent,
@@ -45,7 +43,6 @@ import {MetaService} from "../meta/meta.service";
     MinifigTextlinkComponent,
     AbilitySelectComponent,
     AdsComponent,
-    AmazonComponent,
     CommentSectionComponent,
     NavSectionComponent,
     PackComponent,
