@@ -144,11 +144,7 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
             }
         }
         else {
-            if (document) {
-              let targetId = '#abilityCollapse' + index;
-              (<any>(document.querySelector(targetId))).collapse('show');
-            }
-            //$('#abilityCollapse' + index).collapse('show');
+            (<any>$('#abilityCollapse' + index)).collapse('show');
             event.stopPropagation();
         }
 
@@ -170,15 +166,10 @@ export class AbilitySelectComponent implements OnInit, AfterViewInit {
         }
         let value = (allAreSame ? (checked ? 1 : 0) : 2);
 
-        if (document) {
-            // server-side rendering does not care about the selection
-            let targetId = '#option' + value + '-' + index;
-            let radio = <any>document.querySelector(targetId);
-            //let radio = $('#option' + value + '-' + index);
-            radio.prop("checked", true);
-            radio.parent().parent().children('.active').removeClass("active");
-            radio.parent().addClass("active");
-        }
+        let radio = (<any>$('#option' + value + '-' + index));
+        radio.prop("checked", true);
+        radio.parent().parent().children('.active').removeClass("active");
+        radio.parent().addClass("active");
     }
 
     private _updateAllSkills() {
